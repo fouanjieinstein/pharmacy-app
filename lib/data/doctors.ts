@@ -1,0 +1,173 @@
+import type { Doctor, DoctorSpecialty } from "@/types";
+
+export interface SpecialtyMeta {
+  id: DoctorSpecialty;
+  label: string;
+  description: string;
+}
+
+export const specialties: SpecialtyMeta[] = [
+  { id: "general-physician", label: "General Physician", description: "Everyday health concerns and general checkups." },
+  { id: "dermatology", label: "Dermatology", description: "Skin, hair, and nail conditions." },
+  { id: "cardiology", label: "Cardiology", description: "Heart and cardiovascular health." },
+  { id: "endocrinology", label: "Endocrinology & Diabetes", description: "Diabetes, thyroid, and hormonal conditions." },
+  { id: "gastroenterology", label: "Gastroenterology", description: "Digestive and gut health." },
+  { id: "psychiatry", label: "Psychiatry & Mental Health", description: "Mental health and emotional wellbeing." },
+  { id: "pediatrics", label: "Pediatrics", description: "Child and adolescent health." },
+  { id: "gynecology", label: "Gynecology", description: "Women's reproductive health." },
+  { id: "oncology-support", label: "Oncology Support", description: "Supportive care alongside oncology treatment." },
+  { id: "nutrition", label: "Nutrition & Dietetics", description: "Diet planning and nutritional guidance." },
+];
+
+// Appointment availability is not stored here — it is derived per calendar
+// day at render time. See lib/utils/availability.ts.
+export const doctors: Doctor[] = [
+  {
+    id: "d001",
+    slug: "dr-neha-kapoor",
+    name: "Dr. Neha Kapoor",
+    specialty: "general-physician",
+    qualifications: "MBBS, MD (General Medicine)",
+    experienceYears: 12,
+    languages: ["English", "Hindi"],
+    rating: 4.9,
+    reviewCount: 612,
+    consultationFeeUsd: 85,
+    bio: "Dr. Kapoor sees patients for everyday health concerns — fevers, infections, general checkups, and referrals to specialists when needed.",
+    avatarSeed: "neha-kapoor",
+  },
+  {
+    id: "d002",
+    slug: "dr-arjun-mehta",
+    name: "Dr. Arjun Mehta",
+    specialty: "cardiology",
+    qualifications: "MBBS, MD, DM (Cardiology)",
+    experienceYears: 18,
+    languages: ["English", "Hindi", "Gujarati"],
+    rating: 5.0,
+    reviewCount: 341,
+    consultationFeeUsd: 220,
+    bio: "Dr. Mehta specializes in hypertension, heart failure management, and preventive cardiology, working closely with patients on long-term cardiovascular medication plans.",
+    avatarSeed: "arjun-mehta",
+  },
+  {
+    id: "d003",
+    slug: "dr-priya-narayanan",
+    name: "Dr. Priya Narayanan",
+    specialty: "dermatology",
+    qualifications: "MBBS, MD (Dermatology)",
+    experienceYears: 9,
+    languages: ["English", "Tamil"],
+    rating: 4.9,
+    reviewCount: 288,
+    consultationFeeUsd: 150,
+    bio: "Dr. Narayanan treats acne, eczema, psoriasis, and general skin concerns, and can advise on prescription topical and biologic therapies.",
+    avatarSeed: "priya-narayanan",
+  },
+  {
+    id: "d004",
+    slug: "dr-sanjay-rao",
+    name: "Dr. Sanjay Rao",
+    specialty: "endocrinology",
+    qualifications: "MBBS, MD, DM (Endocrinology)",
+    experienceYears: 15,
+    languages: ["English", "Hindi", "Telugu"],
+    rating: 4.9,
+    reviewCount: 402,
+    consultationFeeUsd: 180,
+    bio: "Dr. Rao manages diabetes, thyroid disorders, and other hormonal conditions, with a focus on long-term treatment planning and medication review.",
+    avatarSeed: "sanjay-rao",
+  },
+  {
+    id: "d005",
+    slug: "dr-alia-fernandes",
+    name: "Dr. Alia Fernandes",
+    specialty: "gastroenterology",
+    qualifications: "MBBS, MD, DNB (Gastroenterology)",
+    experienceYears: 11,
+    languages: ["English", "Hindi", "Konkani"],
+    rating: 4.8,
+    reviewCount: 197,
+    consultationFeeUsd: 165,
+    bio: "Dr. Fernandes consults on acid reflux, IBS, ulcerative colitis, and other digestive conditions, including reviewing prescription treatment options.",
+    avatarSeed: "alia-fernandes",
+  },
+  {
+    id: "d006",
+    slug: "dr-vikram-oberoi",
+    name: "Dr. Vikram Oberoi",
+    specialty: "psychiatry",
+    qualifications: "MBBS, MD (Psychiatry)",
+    experienceYears: 14,
+    languages: ["English", "Hindi", "Punjabi"],
+    rating: 5.0,
+    reviewCount: 256,
+    consultationFeeUsd: 195,
+    bio: "Dr. Oberoi supports patients with anxiety, depression, and other mental health concerns, offering a confidential space to discuss treatment options.",
+    avatarSeed: "vikram-oberoi",
+  },
+  {
+    id: "d007",
+    slug: "dr-ritu-sharma",
+    name: "Dr. Ritu Sharma",
+    specialty: "pediatrics",
+    qualifications: "MBBS, MD (Pediatrics)",
+    experienceYears: 10,
+    languages: ["English", "Hindi"],
+    rating: 4.9,
+    reviewCount: 379,
+    consultationFeeUsd: 120,
+    bio: "Dr. Sharma cares for infants, children, and adolescents, from routine checkups to managing common childhood illnesses.",
+    avatarSeed: "ritu-sharma",
+  },
+  {
+    id: "d008",
+    slug: "dr-meera-iyer",
+    name: "Dr. Meera Iyer",
+    specialty: "gynecology",
+    qualifications: "MBBS, MS (Obstetrics & Gynecology)",
+    experienceYears: 16,
+    languages: ["English", "Hindi", "Tamil"],
+    rating: 5.0,
+    reviewCount: 421,
+    consultationFeeUsd: 185,
+    bio: "Dr. Iyer consults on women's reproductive health, prenatal care guidance, and general gynecological concerns.",
+    avatarSeed: "meera-iyer",
+  },
+  {
+    id: "d009",
+    slug: "dr-karan-malhotra",
+    name: "Dr. Karan Malhotra",
+    specialty: "oncology-support",
+    qualifications: "MBBS, MD (Palliative & Supportive Oncology Care)",
+    experienceYears: 13,
+    languages: ["English", "Hindi"],
+    rating: 4.9,
+    reviewCount: 94,
+    consultationFeeUsd: 225,
+    bio: "Dr. Malhotra provides supportive-care consultations for patients undergoing oncology treatment — symptom management guidance alongside your treating oncologist, not a replacement for oncology specialist care.",
+    avatarSeed: "karan-malhotra",
+  },
+  {
+    id: "d010",
+    slug: "dr-anjali-desai",
+    name: "Dr. Anjali Desai",
+    specialty: "nutrition",
+    qualifications: "BSc, MSc (Clinical Nutrition), RD",
+    experienceYears: 8,
+    languages: ["English", "Hindi", "Gujarati"],
+    rating: 4.8,
+    reviewCount: 168,
+    consultationFeeUsd: 95,
+    bio: "Dr. Desai is a registered dietitian offering personalized nutrition guidance for diabetes management, weight goals, and general wellness.",
+    avatarSeed: "anjali-desai",
+  },
+];
+
+export function getDoctorBySlug(slug: string): Doctor | undefined {
+  return doctors.find((d) => d.slug === slug);
+}
+
+export function getSpecialtyMeta(id: string): SpecialtyMeta | undefined {
+  return specialties.find((s) => s.id === id);
+}
