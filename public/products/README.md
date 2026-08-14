@@ -78,3 +78,34 @@ distinct key from its form factor's pool. See
 
 In production, replace these with real, licensed product photography from
 the pharmacy-management system's media pipeline.
+
+## Adding photos for the newer categories (condoms, devices, baby care, etc.)
+
+These categories currently render as hand-drawn vector illustrations (see
+`components/products/product-illustrations.tsx`) because no real photo pool
+exists for them yet — `POOL_SIZE` in `components/products/product-image.tsx`
+intentionally has no entry for these keys, so every product in these
+categories falls back to its illustration automatically and nothing is
+broken in the meantime.
+
+To swap in real photos, drop `.jpg` files into this folder using the same
+`{key}-{n}.jpg` pattern as above, where `key` is one of:
+
+| Key | Used for |
+|---|---|
+| `box` | Condoms, bandage tins, first-aid kits, diapers, wipes, floss, toothbrushes, masks — anything boxed |
+| `device` | Thermometers, BP monitors, glucose meters, pulse oximeters, nebulizers |
+| `spray` | Antiseptic spray, hand sanitizer |
+| `bottle` | Baby wash, feeding bottles, mouthwash |
+| `pad` | Sanitary pads, tampons |
+| `strip` | Glucose test strips |
+
+You don't need to match any exact count or filename number — add as many
+distinct photos per key as you can find (even 3–5 per key, reused across
+that key's products, is a big visual improvement over 1). Once files are in
+place, tell Claude (or update `POOL_SIZE` in `product-image.tsx` yourself
+with the count per key) and the products using that form factor will start
+rendering the real photo instead of the illustration — no other code needs
+to change. Keep photos generic/unbranded for the same reason as above: this
+is a fictional house brand, so a real manufacturer's branded packaging
+shouldn't appear under the Meridian name.

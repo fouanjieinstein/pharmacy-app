@@ -32,10 +32,9 @@ export function ProductSort({ value, onChange }: { value: SortOption; onChange: 
   );
 }
 
-export function sortProducts<T extends { priceUsd: number; popularityScore: number; createdAt: string; featured: boolean }>(
-  products: T[],
-  sort: SortOption
-): T[] {
+export function sortProducts<
+  T extends { priceUsd: number; popularityScore: number; createdAt: string; featured: boolean; sponsored?: boolean },
+>(products: T[], sort: SortOption): T[] {
   const copy = [...products];
   switch (sort) {
     case "price-asc":
@@ -48,6 +47,11 @@ export function sortProducts<T extends { priceUsd: number; popularityScore: numb
       return copy.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     case "featured":
     default:
-      return copy.sort((a, b) => Number(b.featured) - Number(a.featured) || b.popularityScore - a.popularityScore);
+      return copy.sort(
+        (a, b) =>
+          Number(b.sponsored) - Number(a.sponsored) ||
+          Number(b.featured) - Number(a.featured) ||
+          b.popularityScore - a.popularityScore
+      );
   }
 }

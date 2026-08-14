@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getProductBySlug, getRelatedProducts, products } from "@/lib/data/products";
+import { getProductBySlug, getRelatedProducts, getVariantSiblings, products } from "@/lib/data/products";
 import { getCategoryMeta } from "@/lib/data/categories";
 import { ProductGallery } from "@/components/products/product-gallery";
 import { ProductPurchasePanel } from "@/components/products/product-purchase-panel";
@@ -30,6 +30,7 @@ export default async function ProductDetailPage(props: PageProps<"/products/[slu
 
   const category = getCategoryMeta(product.category);
   const related = getRelatedProducts(product);
+  const variants = getVariantSiblings(product);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 lg:px-8">
@@ -47,7 +48,7 @@ export default async function ProductDetailPage(props: PageProps<"/products/[slu
 
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
         <ProductGallery images={product.images} group={product.group} name={product.name} />
-        <ProductPurchasePanel product={product} />
+        <ProductPurchasePanel product={product} variants={variants} />
       </div>
 
       <div className="mt-14 max-w-4xl">

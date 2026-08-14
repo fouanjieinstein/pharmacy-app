@@ -10,6 +10,11 @@ import {
   UserRound,
   Users,
   Baby,
+  ShieldCheck,
+  Stethoscope,
+  Milk,
+  Smile,
+  Eye,
 } from "lucide-react";
 import type { ProductCategory } from "@/types";
 
@@ -24,6 +29,11 @@ const FEATURED: { id: ProductCategory; label: string; icon: typeof Thermometer }
   { id: "womens-health", label: "Women's Health", icon: UserRound },
   { id: "mens-health", label: "Men's Health", icon: Users },
   { id: "childrens-health", label: "Children's Health", icon: Baby },
+  { id: "sexual-wellness", label: "Sexual Wellness", icon: ShieldCheck },
+  { id: "medical-devices", label: "Medical Devices", icon: Stethoscope },
+  { id: "baby-mother-care", label: "Baby & Mother Care", icon: Milk },
+  { id: "oral-care", label: "Oral Care", icon: Smile },
+  { id: "eye-ear-care", label: "Eye & Ear Care", icon: Eye },
 ];
 
 export function CategoryGrid() {

@@ -28,6 +28,11 @@ export const categories: CategoryMeta[] = [
   { id: "oncology", label: "Oncology", group: "prescription", description: "Physician-directed oncology and oncology-support medications." },
   { id: "wellness-supplements", label: "Wellness Supplements", group: "wellness", description: "Everyday nutritional and preventive wellness support." },
   { id: "healthy-aging", label: "Healthy Aging", group: "wellness", description: "Products supporting healthy, active aging." },
+  { id: "sexual-wellness", label: "Sexual Wellness", group: "otc", description: "Condoms, lubricants, and sexual health essentials." },
+  { id: "medical-devices", label: "Medical Devices", group: "otc", description: "Thermometers, monitors, and home diagnostic equipment." },
+  { id: "baby-mother-care", label: "Baby & Mother Care", group: "otc", description: "Diapers, feeding, and maternal care essentials." },
+  { id: "oral-care", label: "Oral Care", group: "otc", description: "Toothpaste, mouthwash, and dental hygiene essentials." },
+  { id: "eye-ear-care", label: "Eye & Ear Care", group: "otc", description: "Lubricating drops and hygiene care for eyes and ears." },
 ];
 
 export function getCategoryMeta(id: string): CategoryMeta | undefined {

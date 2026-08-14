@@ -12,6 +12,7 @@ import { Input, Select } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { Badge } from "@/components/ui/badge";
 import { EmptyState } from "@/components/ui/empty-state";
+import { CardListSkeleton } from "@/components/ui/skeleton";
 
 const EMPTY_FORM: Omit<Address, "id"> = {
   fullName: "",
@@ -88,11 +89,11 @@ export function AddressesTab() {
         </div>
 
         {loading ? (
-          <p className="text-sm text-brand-gray-500">Loading addresses…</p>
+          <CardListSkeleton count={2} />
         ) : addresses.length === 0 ? (
           <EmptyState icon={<MapPin className="size-10" />} title="No saved addresses" description="Add an address to speed up checkout." />
         ) : (
-          <div className="space-y-3">
+          <div className="animate-fade-in space-y-3">
             {addresses.map((addr) => (
               <div key={addr.id} className="flex items-start justify-between gap-3 rounded-md border border-brand-gray-200 p-4">
                 <div className="text-sm">

@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Heart, Star, ShoppingBag } from "lucide-react";
+import { useState } from "react";
+import { Heart, Star, ShoppingBag, Check } from "lucide-react";
 import type { Product } from "@/types";
 import { useCurrency } from "@/lib/context/currency-context";
 import { useCountry } from "@/lib/context/country-context";
@@ -18,19 +19,35 @@ export function ProductCard({ product }: { product: Product }) {
   const { addItem } = useCart();
   const { isWishlisted, toggleWishlist } = useWishlist();
   const { isPlusMember, formatMemberPrice } = useMemberPrice();
+  const [wishlistPop, setWishlistPop] = useState(false);
+  const [justAdded, setJustAdded] = useState(false);
 
   const availableHere = product.availableCountries.includes(countryCode);
   const wishlisted = isWishlisted(product.id);
 
+  const handleToggleWishlist = () => {
+    if (!wishlisted) {
+      setWishlistPop(true);
+      setTimeout(() => setWishlistPop(false), 300);
+    }
+    toggleWishlist(product.id, product.name);
+  };
+
+  const handleAddItem = () => {
+    addItem(product.id);
+    setJustAdded(true);
+    setTimeout(() => setJustAdded(false), 1200);
+  };
+
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-md border border-brand-gray-200 bg-white transition-shadow hover:shadow-lg">
       <button
-        onClick={() => toggleWishlist(product.id, product.name)}
+        onClick={handleToggleWishlist}
         aria-label={wishlisted ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
         aria-pressed={wishlisted}
-        className="absolute right-3 top-3 z-10 flex size-8 items-center justify-center rounded-full bg-white/90 text-brand-gray-500 shadow-sm hover:text-red-500"
+        className="absolute right-3 top-3 z-10 flex size-8 items-center justify-center rounded-full bg-white/90 text-brand-gray-500 shadow-sm transition-transform hover:text-red-500 active:scale-90"
       >
-        <Heart className={cn("size-4", wishlisted && "fill-red-500 text-red-500")} />
+        <Heart className={cn("size-4", wishlisted && "fill-red-500 text-red-500", wishlistPop && "animate-pop")} />
       </button>
 
       <Link href={`/products/${product.slug}`} className="block">
@@ -39,6 +56,7 @@ export function ProductCard({ product }: { product: Product }) {
 
       <div className="flex flex-1 flex-col p-4">
         <div className="mb-1.5 flex flex-wrap items-center gap-1.5">
+          {product.sponsored && <Badge variant="gray">Sponsored</Badge>}
           {product.prescriptionRequired ? (
             <Badge variant="gold">Prescription Required</Badge>
           ) : (
@@ -72,12 +90,15 @@ export function ProductCard({ product }: { product: Product }) {
             {!product.inStock && <p className="text-xs font-medium text-red-600">Out of Stock</p>}
           </div>
           <button
-            onClick={() => addItem(product.id)}
+            onClick={handleAddItem}
             disabled={!product.inStock || !availableHere}
             aria-label={`Add ${product.name} to cart`}
-            className="flex size-10 items-center justify-center rounded-sm bg-brand-navy-900 text-white transition-colors hover:bg-brand-emerald-700 disabled:cursor-not-allowed disabled:bg-brand-gray-300"
+            className={cn(
+              "flex size-10 items-center justify-center rounded-sm text-white transition-all duration-150 ease-out active:scale-90 disabled:cursor-not-allowed disabled:bg-brand-gray-300",
+              justAdded ? "bg-brand-emerald-600" : "bg-brand-navy-900 hover:bg-brand-emerald-700"
+            )}
           >
-            <ShoppingBag className="size-4.5" />
+            {justAdded ? <Check className="size-4.5 animate-pop" /> : <ShoppingBag className="size-4.5" />}
           </button>
         </div>
       </div>

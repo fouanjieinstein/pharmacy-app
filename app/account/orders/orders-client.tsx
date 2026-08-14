@@ -12,6 +12,7 @@ import { Card, CardBody } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { EmptyState } from "@/components/ui/empty-state";
 import { buttonVariants } from "@/components/ui/button";
+import { CardListSkeleton } from "@/components/ui/skeleton";
 
 export function OrdersClient() {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -27,7 +28,7 @@ export function OrdersClient() {
   }, []);
 
   if (loading) {
-    return <p className="text-sm text-brand-gray-500">Loading orders…</p>;
+    return <CardListSkeleton count={3} />;
   }
 
   if (orders.length === 0) {
@@ -46,7 +47,7 @@ export function OrdersClient() {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="animate-fade-in space-y-4">
       {orders.map((order) => {
         const statusLabel = ORDER_STATUS_SEQUENCE.find((s) => s.status === order.status)?.label ?? order.status;
         return (

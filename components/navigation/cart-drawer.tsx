@@ -10,6 +10,8 @@ import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ProductImage } from "@/components/products/product-image";
 import { EmptyState } from "@/components/ui/empty-state";
+import { cn } from "@/lib/utils/cn";
+import { useExitTransition } from "@/lib/utils/use-exit-transition";
 
 export function CartDrawer() {
   const { isDrawerOpen, closeDrawer, activeItems, productFor, updateQuantity, removeItem, subtotalUsd, hasPrescriptionItems, unitPriceFor } =
@@ -27,11 +29,25 @@ export function CartDrawer() {
     };
   }, [isDrawerOpen, closeDrawer]);
 
-  if (!isDrawerOpen || typeof document === "undefined") return null;
+  const shouldRender = useExitTransition(isDrawerOpen, 180);
+  if (!shouldRender || typeof document === "undefined") return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-100 flex justify-end bg-brand-navy-950/50 animate-fade-in">
-      <div role="dialog" aria-modal="true" aria-label="Shopping cart" className="flex h-full w-full max-w-md flex-col bg-white shadow-2xl animate-slide-up">
+    <div
+      className={cn(
+        "fixed inset-0 z-100 flex justify-end bg-brand-navy-950/50",
+        isDrawerOpen ? "animate-fade-in" : "animate-fade-out"
+      )}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Shopping cart"
+        className={cn(
+          "flex h-full w-full max-w-md flex-col bg-white shadow-2xl",
+          isDrawerOpen ? "animate-slide-up" : "animate-slide-down"
+        )}
+      >
         <div className="flex items-center justify-between border-b border-brand-gray-200 px-6 py-5">
           <h2 className="font-display text-xl text-brand-navy-900">Your Cart</h2>
           <button onClick={closeDrawer} aria-label="Close cart" className="rounded-full p-1.5 text-brand-gray-500 hover:bg-brand-gray-100">

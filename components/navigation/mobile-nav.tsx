@@ -9,6 +9,8 @@ import { CurrencySelector } from "@/components/navigation/currency-selector";
 import { CountrySelector } from "@/components/navigation/country-selector";
 import { SearchBar } from "@/components/navigation/search-bar";
 import { Logo } from "@/components/navigation/logo";
+import { cn } from "@/lib/utils/cn";
+import { useExitTransition } from "@/lib/utils/use-exit-transition";
 
 export function MobileNav({ open, onClose }: { open: boolean; onClose: () => void }) {
   useEffect(() => {
@@ -19,11 +21,22 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
     };
   }, [open]);
 
-  if (!open || typeof document === "undefined") return null;
+  const shouldRender = useExitTransition(open, 180);
+  if (!shouldRender || typeof document === "undefined") return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-100 bg-brand-navy-950/50 animate-fade-in lg:hidden">
-      <div className="flex h-full w-full max-w-xs flex-col bg-white shadow-2xl animate-slide-up">
+    <div
+      className={cn(
+        "fixed inset-0 z-100 bg-brand-navy-950/50 lg:hidden",
+        open ? "animate-fade-in" : "animate-fade-out"
+      )}
+    >
+      <div
+        className={cn(
+          "flex h-full w-full max-w-xs flex-col bg-white shadow-2xl",
+          open ? "animate-slide-up" : "animate-slide-down"
+        )}
+      >
         <div className="flex items-center justify-between border-b border-brand-gray-200 px-5 py-4">
           <Logo />
           <button onClick={onClose} aria-label="Close menu" className="rounded-full p-1.5 text-brand-gray-500 hover:bg-brand-gray-100">

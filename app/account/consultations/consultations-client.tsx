@@ -12,18 +12,24 @@ import { Card, CardBody } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
+import { CardListSkeleton } from "@/components/ui/skeleton";
 
 export function ConsultationsClient() {
   const { showToast } = useToast();
   const { format } = useCurrency();
   const [items, setItems] = useState<Consultation[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const refresh = () => listConsultations().then(setItems).catch(() => showToast("Couldn't load consultations.", "error"));
 
   useEffect(() => {
-    refresh();
+    refresh().finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (loading) {
+    return <CardListSkeleton count={3} />;
+  }
 
   if (items.length === 0) {
     return (
@@ -41,7 +47,7 @@ export function ConsultationsClient() {
   }
 
   return (
-    <div className="space-y-3">
+    <div className="animate-fade-in space-y-3">
       {items.map((c) => {
         const doctor = doctors.find((d) => d.id === c.doctorId);
         return (

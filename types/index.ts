@@ -53,7 +53,12 @@ export type ProductCategory =
   | "autoimmune"
   | "oncology"
   | "wellness-supplements"
-  | "healthy-aging";
+  | "healthy-aging"
+  | "sexual-wellness"
+  | "medical-devices"
+  | "baby-mother-care"
+  | "oral-care"
+  | "eye-ear-care";
 
 export type ProductGroup = "otc" | "prescription" | "wellness";
 
@@ -87,6 +92,16 @@ export interface Product {
   rating: number;
   reviewCount: number;
   featured: boolean;
+  /** Paid placement flag — surfaces a "Sponsored" label and gets a ranking
+   * boost in default/featured sort, mirroring real marketplace listings. */
+  sponsored?: boolean;
+  /** Groups sibling pack-size/strength variants of the same underlying
+   * product together (e.g. same condom line in 10s and 20s). Each variant
+   * is still its own full Product entry with its own id/slug/price/stock —
+   * this just lets the product page render a variant switcher between them. */
+  variantGroup?: string;
+  /** Short label for the variant switcher, e.g. "10 Units" / "20 Units". */
+  variantLabel?: string;
   popularityScore: number;
   createdAt: string;
   images: string[];

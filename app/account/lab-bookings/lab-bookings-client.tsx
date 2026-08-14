@@ -12,6 +12,7 @@ import { Card, CardBody } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
+import { CardListSkeleton } from "@/components/ui/skeleton";
 
 const STATUS_VARIANT: Record<LabBooking["status"], "emerald" | "navy" | "gold" | "red" | "gray"> = {
   scheduled: "emerald",
@@ -25,13 +26,18 @@ export function LabBookingsClient() {
   const { format } = useCurrency();
   const { showToast } = useToast();
   const [items, setItems] = useState<LabBooking[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const refresh = () => listLabBookings().then(setItems).catch(() => showToast("Couldn't load lab bookings.", "error"));
 
   useEffect(() => {
-    refresh();
+    refresh().finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (loading) {
+    return <CardListSkeleton count={3} />;
+  }
 
   if (items.length === 0) {
     return (
@@ -49,7 +55,7 @@ export function LabBookingsClient() {
   }
 
   return (
-    <div className="space-y-3">
+    <div className="animate-fade-in space-y-3">
       {items.map((b) => {
         const tests = b.testIds.map((id) => getLabTestById(id)).filter(Boolean);
         const ModeIcon = b.collectionMode === "home-visit" ? Home : Building2;

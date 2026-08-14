@@ -8,6 +8,7 @@ import { listPrescriptions } from "@/lib/services/prescription-service";
 import type { PrescriptionUpload } from "@/types";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Card, CardBody } from "@/components/ui/card";
+import { CardListSkeleton } from "@/components/ui/skeleton";
 
 const STATUS_STEPS = [
   { status: "pending_review", label: "Pending Review", description: "We've received your file and it's queued for review." },
@@ -17,9 +18,22 @@ const STATUS_STEPS = [
 
 export function PrescriptionClient() {
   const [uploads, setUploads] = useState<PrescriptionUpload[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const refresh = () => listPrescriptions().then(setUploads).catch(() => {});
+    // Only the first fetch shows a loading state — the 5s poll after that
+    // should update silently, not flicker the list back to a skeleton.
+    let first = true;
+    const refresh = () =>
+      listPrescriptions()
+        .then(setUploads)
+        .catch(() => {})
+        .finally(() => {
+          if (first) {
+            setLoading(false);
+            first = false;
+          }
+        });
     refresh();
     const interval = setInterval(refresh, 5000);
     return () => clearInterval(interval);
@@ -32,14 +46,16 @@ export function PrescriptionClient() {
 
         <div className="mt-10">
           <h2 className="font-display mb-4 text-xl text-brand-navy-900">Your Uploaded Prescriptions</h2>
-          {uploads.length === 0 ? (
+          {loading ? (
+            <CardListSkeleton count={2} />
+          ) : uploads.length === 0 ? (
             <EmptyState
               icon={<FileText className="size-10" />}
               title="No prescriptions uploaded yet"
               description="Upload a prescription above to get started. You can link it to a prescription order at checkout."
             />
           ) : (
-            <ul className="space-y-3">
+            <ul className="animate-fade-in space-y-3">
               {uploads.map((upload) => (
                 <li key={upload.id}>
                   <Card>

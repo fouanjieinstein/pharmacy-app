@@ -4,6 +4,7 @@ import { useEffect, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
+import { useExitTransition } from "@/lib/utils/use-exit-transition";
 
 export function Modal({
   open,
@@ -31,13 +32,17 @@ export function Modal({
     };
   }, [open, onClose]);
 
-  if (!open || typeof document === "undefined") return null;
+  const shouldRender = useExitTransition(open, 180);
+  if (!shouldRender || typeof document === "undefined") return null;
 
   const sizeClass = { sm: "max-w-sm", md: "max-w-lg", lg: "max-w-2xl" }[size];
 
   return createPortal(
     <div
-      className="fixed inset-0 z-100 flex items-center justify-center bg-brand-navy-950/50 p-4 animate-fade-in"
+      className={cn(
+        "fixed inset-0 z-100 flex items-center justify-center bg-brand-navy-950/50 p-4",
+        open ? "animate-fade-in" : "animate-fade-out"
+      )}
       onClick={onClose}
       role="presentation"
     >
@@ -46,7 +51,8 @@ export function Modal({
         aria-modal="true"
         aria-label={title}
         className={cn(
-          "w-full rounded-md bg-white p-6 shadow-xl animate-slide-up max-h-[90vh] overflow-y-auto",
+          "w-full rounded-md bg-white p-6 shadow-xl max-h-[90vh] overflow-y-auto",
+          open ? "animate-slide-up" : "animate-slide-down",
           sizeClass
         )}
         onClick={(e) => e.stopPropagation()}

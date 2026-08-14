@@ -65,22 +65,91 @@
   --font-display: var(--font-fraunces);
 
   --animate-fade-in: fade-in 0.5s ease-out;
+  --animate-fade-out: fade-out 0.15s ease-in forwards;
   --animate-slide-up: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-slide-down: slide-down 0.2s cubic-bezier(0.4, 0, 1, 1) forwards;
+  --animate-scale-in: scale-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-shimmer: shimmer 1.8s ease-in-out infinite;
+  --animate-pop: pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 
   @keyframes fade-in {
     from { opacity: 0; }
     to { opacity: 1; }
   }
+  @keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
   @keyframes slide-up {
     from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
   }
+  @keyframes slide-down {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(12px); }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  @keyframes pop {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.25); }
+    100% { transform: scale(1); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Moving gradient sweep for skeleton loaders — livelier than a flat pulse. */
+.skeleton-shimmer {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-gray-200) 25%,
+    var(--color-gray-100) 50%,
+    var(--color-gray-200) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+/* Continuously-scrolling promo strip. The track renders its children twice
+   back-to-back and slides exactly -50% so the loop point is invisible. */
+.marquee-track {
+  animation: marquee 26s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
 }
 
 ::selection {

@@ -16,10 +16,10 @@ const trustItems = [
 ];
 
 const showcaseCards = [
-  { Illustration: BlisterPackIllustration, tint: "bg-brand-emerald-50 text-brand-emerald-600", className: "translate-x-2 -translate-y-3 rotate-[-6deg]" },
-  { Illustration: CapsuleIllustration, tint: "bg-white text-brand-navy-700", className: "translate-x-24 translate-y-6 rotate-[4deg]" },
-  { Illustration: SyrupBottleIllustration, tint: "bg-brand-gold-50 text-brand-gold-600", className: "translate-x-4 translate-y-32 rotate-[-3deg]" },
-  { Illustration: InjectionPenIllustration, tint: "bg-white text-brand-navy-700", className: "translate-x-32 translate-y-44 rotate-[5deg]" },
+  { Illustration: BlisterPackIllustration, tint: "bg-brand-emerald-50 text-brand-emerald-700", className: "translate-x-2 -translate-y-3 rotate-[-6deg]" },
+  { Illustration: CapsuleIllustration, tint: "bg-white text-brand-navy-800", className: "translate-x-24 translate-y-6 rotate-[4deg]" },
+  { Illustration: SyrupBottleIllustration, tint: "bg-brand-gold-50 text-brand-gold-700", className: "translate-x-4 translate-y-32 rotate-[-3deg]" },
+  { Illustration: InjectionPenIllustration, tint: "bg-white text-brand-navy-800", className: "translate-x-32 translate-y-44 rotate-[5deg]" },
 ];
 
 export function Hero() {

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, Search, User, ShoppingBag, Truck, ShieldCheck, Crown } from "lucide-react";
+import { Menu, Search, User, ShoppingBag, ShieldCheck, Crown } from "lucide-react";
 import { Logo } from "@/components/navigation/logo";
 import { NAV_LINKS } from "@/components/navigation/nav-links";
 import { CurrencySelector } from "@/components/navigation/currency-selector";
@@ -11,6 +11,7 @@ import { CountrySelector } from "@/components/navigation/country-selector";
 import { SearchBar } from "@/components/navigation/search-bar";
 import { MobileNav } from "@/components/navigation/mobile-nav";
 import { CartDrawer } from "@/components/navigation/cart-drawer";
+import { PromoTicker } from "@/components/navigation/promo-ticker";
 import { useCart } from "@/lib/context/cart-context";
 import { useMembership } from "@/lib/context/membership-context";
 import { cn } from "@/lib/utils/cn";
@@ -24,13 +25,7 @@ export function Header() {
 
   return (
     <>
-      <div className="bg-brand-navy-900 px-4 py-2 text-center text-xs font-medium text-white">
-        <span className="inline-flex items-center gap-1.5">
-          <Truck className="size-3.5 text-brand-emerald-400" />
-          International Delivery Available
-          <span className="hidden text-brand-gray-300 sm:inline"> — eligibility varies by destination country</span>
-        </span>
-      </div>
+      <PromoTicker />
 
       <header className="sticky top-0 z-40 border-b border-brand-gray-200 bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3.5 lg:px-8">

@@ -11,8 +11,9 @@ import { useWishlist } from "@/lib/context/wishlist-context";
 import { useMemberPrice } from "@/lib/utils/use-member-price";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils/cn";
 
-export function ProductPurchasePanel({ product }: { product: Product }) {
+export function ProductPurchasePanel({ product, variants = [] }: { product: Product; variants?: Product[] }) {
   const [quantity, setQuantity] = useState(1);
   const { format } = useCurrency();
   const { countryCode, country } = useCountry();
@@ -66,6 +67,30 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
         </Link>
       )}
       <p className="mt-1 text-xs text-brand-gray-400">Manufactured by {product.manufacturer}</p>
+
+      {variants.length > 1 && (
+        <div className="mt-5">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-brand-gray-500">
+            Select Available Variant
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {variants.map((v) => (
+              <Link
+                key={v.id}
+                href={`/products/${v.slug}`}
+                className={cn(
+                  "rounded-sm border px-4 py-2 text-sm font-medium transition-colors",
+                  v.id === product.id
+                    ? "border-brand-emerald-600 bg-brand-emerald-50 text-brand-emerald-700"
+                    : "border-brand-gray-300 text-brand-navy-900 hover:border-brand-navy-900"
+                )}
+              >
+                {v.variantLabel ?? v.packSize}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="mt-6 space-y-2.5 rounded-md border border-brand-gray-200 p-4 text-sm">
         <div className="flex items-center gap-2">

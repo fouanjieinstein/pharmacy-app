@@ -145,6 +145,84 @@ export function InjectionPenIllustration(props: IllustrationProps) {
   );
 }
 
+export function BrandedBoxIllustration(props: IllustrationProps) {
+  return (
+    <svg {...base} {...props}>
+      <rect x="22" y="18" width="56" height="64" rx="4" fill="currentColor" opacity="0.1" stroke="currentColor" strokeWidth="2" />
+      <rect x="22" y="18" width="56" height="16" fill="currentColor" opacity="0.85" />
+      <rect x="30" y="24" width="24" height="4" rx="2" fill="white" opacity="0.9" />
+      <circle cx="50" cy="56" r="14" fill="none" stroke="currentColor" strokeWidth="2" opacity="0.35" />
+      <path d="M43 56 l5 5 l9 -10" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
+      <rect x="30" y="72" width="40" height="4" rx="2" fill="currentColor" opacity="0.2" />
+    </svg>
+  );
+}
+
+export function MedicalDeviceIllustration(props: IllustrationProps) {
+  return (
+    <svg {...base} {...props}>
+      <rect x="30" y="16" width="40" height="58" rx="10" fill="currentColor" opacity="0.1" stroke="currentColor" strokeWidth="2" />
+      <rect x="36" y="24" width="28" height="18" rx="3" fill="currentColor" opacity="0.85" />
+      <rect x="40" y="28" width="12" height="3" rx="1.5" fill="white" opacity="0.9" />
+      <rect x="40" y="34" width="8" height="3" rx="1.5" fill="white" opacity="0.6" />
+      <circle cx="50" cy="58" r="8" fill="none" stroke="currentColor" strokeWidth="2" opacity="0.5" />
+      <circle cx="50" cy="58" r="2.5" fill="currentColor" opacity="0.6" />
+      <line x1="34" y1="66" x2="66" y2="66" stroke="currentColor" strokeWidth="1.25" opacity="0.35" />
+    </svg>
+  );
+}
+
+export function SprayBottleIllustration(props: IllustrationProps) {
+  return (
+    <svg {...base} {...props}>
+      <rect x="40" y="14" width="10" height="8" rx="1.5" fill="currentColor" opacity="0.6" />
+      <path d="M50 16 h10 a3 3 0 0 1 3 3 v3 a3 3 0 0 1 -3 3 h-10 Z" fill="currentColor" opacity="0.5" />
+      <line x1="63" y1="19.5" x2="72" y2="15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+      <rect x="34" y="30" width="24" height="48" rx="7" fill="currentColor" opacity="0.1" stroke="currentColor" strokeWidth="2" />
+      <rect x="34" y="44" width="24" height="6" fill="currentColor" opacity="0.15" />
+    </svg>
+  );
+}
+
+export function BabyBottleIllustration(props: IllustrationProps) {
+  return (
+    <svg {...base} {...props}>
+      <ellipse cx="50" cy="24" rx="9" ry="5" fill="currentColor" opacity="0.7" />
+      <rect x="44" y="27" width="12" height="8" fill="currentColor" opacity="0.35" />
+      <path d="M32 35 h36 l-3 40 a8 8 0 0 1 -8 7 H43 a8 8 0 0 1 -8 -7 Z" fill="currentColor" opacity="0.1" stroke="currentColor" strokeWidth="2" />
+      <rect x="34" y="50" width="32" height="10" opacity="0.18" fill="currentColor" />
+      <line x1="38" y1="42" x2="62" y2="42" stroke="currentColor" strokeWidth="1.25" opacity="0.4" />
+    </svg>
+  );
+}
+
+export function PadPackIllustration(props: IllustrationProps) {
+  return (
+    <svg {...base} {...props}>
+      <rect x="18" y="26" width="64" height="46" rx="6" fill="currentColor" opacity="0.1" stroke="currentColor" strokeWidth="2" />
+      <rect x="18" y="26" width="64" height="13" fill="currentColor" opacity="0.85" />
+      <rect x="26" y="30.5" width="20" height="4" rx="2" fill="white" opacity="0.9" />
+      <rect x="30" y="48" width="18" height="14" rx="7" fill="currentColor" opacity="0.3" />
+      <rect x="52" y="48" width="18" height="14" rx="7" fill="currentColor" opacity="0.3" />
+    </svg>
+  );
+}
+
+export function TestStripIllustration(props: IllustrationProps) {
+  return (
+    <svg {...base} {...props}>
+      <rect x="24" y="18" width="52" height="30" rx="5" fill="currentColor" opacity="0.1" stroke="currentColor" strokeWidth="2" />
+      <rect x="24" y="18" width="52" height="9" fill="currentColor" opacity="0.85" />
+      {[0, 1, 2].map((i) => (
+        <g key={i} transform={`rotate(-18 ${34 + i * 15} 64)`}>
+          <rect x={30 + i * 15} y="52" width="8" height="26" rx="2" fill="currentColor" opacity="0.15" stroke="currentColor" strokeWidth="1.5" />
+          <rect x={30 + i * 15} y="70" width="8" height="8" rx="1" fill="currentColor" opacity="0.55" />
+        </g>
+      ))}
+    </svg>
+  );
+}
+
 export const PRODUCT_ILLUSTRATIONS: Record<string, (props: IllustrationProps) => ReactElement> = {
   tablet: BlisterPackIllustration,
   capsule: CapsuleIllustration,
@@ -155,4 +233,10 @@ export const PRODUCT_ILLUSTRATIONS: Record<string, (props: IllustrationProps) =>
   kit: FirstAidKitIllustration,
   supplement: SupplementJarIllustration,
   injection: InjectionPenIllustration,
+  box: BrandedBoxIllustration,
+  device: MedicalDeviceIllustration,
+  spray: SprayBottleIllustration,
+  bottle: BabyBottleIllustration,
+  pad: PadPackIllustration,
+  strip: TestStripIllustration,
 };
